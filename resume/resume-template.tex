@@ -1,0 +1,100 @@
+\documentclass[10pt]{resume}
+
+\usepackage[sfdefault, mono=false]{libertinus}  % Set typeface
+\usepackage{lipsum}
+
+\linespread{1.6}                        % Set line spacing
+% \geometry{margin=1in}                   % Change margins
+% \hypersetup{nolinks=true}               % Disable hyperlinks
+
+\name{My Name}
+\pronouns{they/them}                    % Optional, can comment out
+\email{myname@domain.com}
+\linkedin{myname}
+\website{personalsite.com}
+\github{myname}
+
+
+
+\begin{document}
+
+\makeheader
+
+
+
+\section*{Education}
+\education{University Name}{Location}{Degree}{\dates{Start Date}{End Date}}{X.XX}{Minors, honors, or additional comments}{
+    \begin{itemize}
+        \item Relevant Coursework:
+        \begin{commalist}
+            \item Course 1
+            \item Course 2
+            \item Course 3
+            \item Course 4
+            \item Course 5
+            \item Course 6
+            \item Course 7
+            \item Course 8
+            \item Course 9
+            \item Course 10
+        \end{commalist}
+    \end{itemize}
+}
+
+
+
+\section*{Experience}
+\begin{experience}{Company Name}{Location}{Job Title}{\dates{Start Date}{Present}}
+    \item \lipsum[1][1]
+    \item \lipsum[1][2]
+    \item \lipsum[1][3]
+\end{experience}
+
+\begin{experience}{Company Name}{Location}{Job Title}{\dates{Start Date}{End Date}}
+    \item \lipsum[1][4]
+    \item \lipsum[1][5]
+    \item \lipsum[1][6]
+\end{experience}
+
+
+
+\section*{Projects}
+\begin{project}{Project Name}{List, Stack, Here}[GitHub]{\link[some.url/link]{https://some.url/link}}
+    \item \lipsum[1][7]
+    \item \lipsum[1][8]
+\end{project}
+
+\begin{project}{Project Name}{List, Stack, Here}{\dates{Start Date}{End Date}}
+    \item \lipsum[1][9]
+    \item \lipsum[1][10]
+\end{project}
+
+
+
+\section*{Skills}
+\begin{skills}{Languages}
+    \item List
+    \item Languages
+    \item Here
+\end{skills}
+
+\begin{skills}{Technologies}
+    \item List
+    \item Technologies
+    \item Here
+\end{skills}
+
+
+
+\section*{Activities}
+\activity{Activity Name --- Some Position}{\dates{Start Date}{Present}}
+
+\activity{Activity Name --- Some Award}{Date}
+
+\activity{Activity Name}{\dates{Start Date}{End Date}}
+
+\activity{Activity Name}{\dates{Start Date}{End Date}}
+
+
+
+\end{document}
