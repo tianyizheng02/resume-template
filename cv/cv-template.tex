@@ -1,0 +1,69 @@
+\documentclass[11pt]{cv}
+
+\usepackage[sfdefault, mono=false]{libertinus}
+\usepackage[sansmath]{libertinust1math}
+
+% \hypersetup{nolinks=true}           % Disable hyperlinks
+\geometry{margin=0.75in}
+
+\title{Curriculum Vitae}            % Not displayed
+\author{Your Name}
+\email{email@school.edu}
+\phone{(123) 456-7890}
+\homepage{yourhomepage.com}
+\address{%
+    Department of Underwater Basketweaving\\
+    University in Delaware\\
+    123 Main Street\\
+    CIty, ST 12345
+}
+\date{Current Date}
+
+\addbibresource{publications.bib}
+
+
+\begin{document}
+
+\maketitle
+
+\section{Education}
+\education{University in Delaware}
+{Ph.D. in Underwater Basketweaving}
+{City, ST}{\dates{Month Year}{Month Year}}{
+    \begin{itemize}
+        \item Thesis: \textit{Upside-Down Underwater Basketweaving: An Exploration of Alternative Methods to Traditional Pre-Columbian Underwater Basketweaving Techniques}
+        \item Advisor: Dr. Edward Viser
+    \end{itemize}
+}
+
+\education{University in Delaware}
+{B.S. in Interpretive Dance, Minor in String Theory}
+{City, ST}{\dates{Month Year}{Month Year}}{}
+
+
+\section{Work Experience}
+\experience{Location}
+{Position}
+{City, ST}{\dates{Month Year}{Month Year}}{
+    \begin{itemize}
+        \item Description (can leave empty)
+    \end{itemize}
+}
+
+
+\section{Publications}
+\nocite{*}
+\printbibliography[heading=none]
+
+
+\section{Other Stuff}
+\entry{Presentation Title}
+{Subtitle}
+{City, ST}{Date}
+{
+    \begin{itemize}
+        \item Description (can leave empty)
+    \end{itemize}
+}
+
+\end{document}
