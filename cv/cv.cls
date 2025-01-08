@@ -120,6 +120,19 @@
         }{}
     \end{adjustbox}
     \bigskip
+    % Unset commands, copied from the definition of \maketitle from the article document class
+    % https://tex.stackexchange.com/a/452985/270231
+    \let\thanks\relax
+    \let\maketitle\relax
+    \let\@maketitle\relax
+    \let\@thanks\@empty
+    \let\@author\@empty
+    \let\@date\@empty
+    \let\@title\@empty
+    \let\title\relax
+    \let\author\relax
+    \let\date\relax
+    \let\and\relax
 }
 
 \NewDocumentCommand{\education}{mmmmm}{%
