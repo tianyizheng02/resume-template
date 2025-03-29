@@ -159,7 +159,7 @@
 
 % The "entry" command is basically the same as the "experience" command, but I kept them separate so that I may choose to style them differently in the future
 \NewDocumentCommand{\entry}{mmmmm}{%
-    \textbf{#1}\IfBlankF{#2}{\hfill #4}
+    \textbf{#1}\IfBlankF{#4}{\hfill #4}
 
     \IfBlankF{#2}{\nopagebreak\textit{#2}}\IfBlankF{#3}{\IfBlankT{#2}{\nopagebreak}\hfill #3}
 
