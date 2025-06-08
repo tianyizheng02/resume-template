@@ -16,6 +16,7 @@
 \RequirePackage[margin=0.5in]{geometry}     % Margins
 \RequirePackage{graphicx}                   % Icons
 \RequirePackage[hidelinks]{hyperref}        % Links
+\let\CheckCommand\providecommand            % Suppress spurious microtype warning: https://tex.stackexchange.com/a/511714
 \RequirePackage{microtype}                  % Better typography
 \RequirePackage{titlesec}                   % Section headers
 \RequirePackage[normalem]{ulem}             % Underlined text
