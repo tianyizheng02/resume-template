@@ -14,10 +14,10 @@
 \RequirePackage[outline]{contour}           % Contours for links
 \RequirePackage[inline]{enumitem}           % List spacing
 \RequirePackage[margin=0.5in]{geometry}     % Margins
-\RequirePackage{graphicx}                   % Icons
 \RequirePackage[hidelinks]{hyperref}        % Links
 \let\CheckCommand\providecommand            % Suppress spurious microtype warning: https://tex.stackexchange.com/a/511714
 \RequirePackage{microtype}                  % Better typography
+\RequirePackage{tablericons}                % Icons
 \RequirePackage{titlesec}                   % Section headers
 \RequirePackage[normalem]{ulem}             % Underlined text
 \RequirePackage{xcolor}                     % Colored text
@@ -27,9 +27,6 @@
 \contourlength{0.075em}             % Contour width for links
 \contournumber{256}                 % Countour count (fidelity) for links
 \renewcommand{\ULdepth}{0.15em}     % Underline depth for links
-
-% Icons from Tabler icons, https://github.com/tabler/tabler-icons
-\graphicspath{{./icons/}}   % Filepath for icons
 
 % Page styling
 \pagestyle{empty}
@@ -61,6 +58,11 @@
 \NewDocumentCommand{\github}{m}{\gdef\@github{#1}}
 \NewDocumentCommand{\@github}{}{\ClassWarning{\thispackage}{No \noexpand\github provided}}
 
+\newlength{\iconheight}
+\setlength{\iconheight}{1.5em}
+\newlength{\icondepth}
+\setlength{\icondepth}{-0.5em}
+
 \newlength{\namesize}
 \setlength{\namesize}{28pt}
 \NewDocumentCommand{\makeheader}{}{
@@ -72,16 +74,17 @@
     \begin{adjustbox}{valign=t}
         \setlength{\tabcolsep}{0em}
         \begin{tabular}{l@{\qquad}l}
-            \icon{mail}
+            % The "\the" expands the length variables into their underlying values
+            \tablericon[height={\the\iconheight/\the\icondepth}]{mail}
             \link[\@email]{mailto:\@email}
             &
-            \icon{linkedin}
+            \tablericon[height={\the\iconheight/\the\icondepth}]{brand-linkedin}
             \link[\@linkedin]{https://www.linkedin.com/in/\@linkedin}\\
 
-            \icon{browser}
+            \tablericon[height={\the\iconheight/\the\icondepth}]{browser}
             \link[\@website]{https://\@website}
             &
-            \icon{github}
+            \tablericon[height={\the\iconheight/\the\icondepth}]{brand-github}
             \link[\@github]{https://github.com/\@github}
         \end{tabular}
     \end{adjustbox}
@@ -128,7 +131,6 @@
 \newcommand{\itemspace}{\medskipamount}
 \newcommand{\linespace}{\smallskipamount}
 \NewDocumentCommand{\link}{om}{\textcolor{blue}{\uline{\phantom{\IfValueTF{#1}{#1}{#2}}}\llap{\contour{white}{\href{#2}{\IfValueTF{#1}{#1}{#2}}}}}}
-\NewDocumentCommand{\icon}{m}{\raisebox{-0.5em}{\includegraphics[height=1.5em]{#1}}}
 \NewDocumentCommand{\activity}{mm}{\textbf{#1} \hfill #2\\\addvspace{\linespace}}
 \NewDocumentCommand{\dates}{mm}{#1 -- #2}
 
