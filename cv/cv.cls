@@ -17,7 +17,6 @@
 \RequirePackage{fancyhdr}
 \RequirePackage[margin=1in]{geometry}
 \RequirePackage{lastpage}
-\let\CheckCommand\providecommand    % Suppress spurious microtype warning: https://tex.stackexchange.com/a/511714
 \RequirePackage{microtype}
 \RequirePackage{titlesec}
 \RequirePackage[normalem]{ulem}

@@ -15,7 +15,6 @@
 \RequirePackage[inline]{enumitem}           % List spacing
 \RequirePackage[margin=0.5in]{geometry}     % Margins
 \RequirePackage[hidelinks]{hyperref}        % Links
-\let\CheckCommand\providecommand            % Suppress spurious microtype warning: https://tex.stackexchange.com/a/511714
 \RequirePackage{microtype}                  % Better typography
 \RequirePackage{tablericons}                % Icons
 \RequirePackage{titlesec}                   % Section headers
