@@ -10,7 +10,7 @@
 \LoadClass{article}
 
 \RequirePackage{adjustbox}
-\RequirePackage[backend=biber, sorting=ddnt]{biblatex}
+\RequirePackage[backend=biber, maxbibnames=99, sorting=ddnt]{biblatex}
 \RequirePackage[outline]{contour}
 \RequirePackage[inline]{enumitem}
 \RequirePackage{etoolbox}
@@ -167,6 +167,28 @@
     \IfBlankF{#5}{\nopagebreak#5}
     \par    % \addvspace only works in vertical mode: https://tex.stackexchange.com/a/14694
     \addvspace{\itemspace}
+}
+
+
+% Bold author name in publications: https://tex.stackexchange.com/a/327046
+\DeclareDocumentCommand{\boldbibname}{mmm}{%
+    \def\@firstname{#1}%
+    \def\@firstinit{#2}%
+    \def\@lastname{#3}
+}
+
+\RenewDocumentCommand{\mkbibnamegiven}{m}{%
+    \ifboolexpr{
+        ( test {\ifdefequal{\@firstname}{\namepartgiven}} or test {\ifdefequal{\@firstinit}{\namepartgiven}} )
+        and test {\ifdefequal{\@lastname}{\namepartfamily}}
+    }{\mkbibbold{#1}}{#1}%
+}
+
+\RenewDocumentCommand{\mkbibnamefamily}{m}{%
+    \ifboolexpr{
+        ( test {\ifdefequal{\@firstname}{\namepartgiven}} or test {\ifdefequal{\@firstinit}{\namepartgiven}} )
+        and test {\ifdefequal{\@lastname}{\namepartfamily}}
+    }{\mkbibbold{#1}}{#1}%
 }
 
 \raggedright
