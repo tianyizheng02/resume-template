@@ -1,9 +1,9 @@
-\documentclass[10pt]{resume}
+\documentclass[11pt]{resume}
 
 \usepackage[sfdefault, mono=false]{libertinus}  % Set typeface
-\usepackage{lipsum}
+\usepackage{lipsum}                             % Filler text, remove import for actual use
 
-\linespread{1.6}                        % Set line spacing
+\linespread{1}                          % Set line spacing
 % \geometry{margin=1in}                   % Change margins
 % \hypersetup{nolinks=true}               % Disable hyperlinks
 
@@ -36,10 +36,11 @@
             \item Course 7
             \item Course 8
             \item Course 9
-            \item Course 10
         \end{commalist}
     \end{itemize}
 }
+
+\education{University Name}{Location}{Degree}{\dates{Start Date}{End Date}}{X.XX}{Minors, honors, or additional comments}{}
 
 
 
@@ -56,17 +57,23 @@
     \item \lipsum[1][6]
 \end{experience}
 
+\begin{experience}{Company Name}{Location}{Job Title}{\dates{Start Date}{End Date}}
+    \item \lipsum[1][7]
+    \item \lipsum[1][8]
+    \item \lipsum[1][9]
+\end{experience}
+
 
 
 \section*{Projects}
 \begin{project}{Project Name}{List, Stack, Here}[GitHub]{\link[some.url/link]{https://some.url/link}}
-    \item \lipsum[1][7]
-    \item \lipsum[1][8]
+    \item \lipsum[1][10]
+    \item \lipsum[1][11]
 \end{project}
 
 \begin{project}{Project Name}{List, Stack, Here}{\dates{Start Date}{End Date}}
-    \item \lipsum[1][9]
-    \item \lipsum[1][10]
+    \item \lipsum[1][12]
+    \item \lipsum[1][13]
 \end{project}
 
 
