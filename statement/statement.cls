@@ -2,7 +2,7 @@
 
 \newcommand{\thispackage}{statement}
 
-\ProvidesClass{\thispackage}[2025/06/08 Tianyi and Alejandro's statement of purpose document class]
+\ProvidesClass{\thispackage}[2025/09/04 Tianyi and Alejandro's statement of purpose document class]
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax

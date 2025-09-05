@@ -2,7 +2,7 @@
 
 \newcommand{\thispackage}{cv}
 
-\ProvidesClass{\thispackage}[2024/07/08 Tianyi and Alejandro's CV document class]
+\ProvidesClass{\thispackage}[2025/09/04 Tianyi and Alejandro's CV document class]
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax

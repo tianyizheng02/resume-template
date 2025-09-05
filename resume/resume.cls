@@ -2,7 +2,7 @@
 
 \newcommand{\thispackage}{resume}
 
-\ProvidesClass{\thispackage}[2024/09/10 Tianyi and Alejandro's resume document class]
+\ProvidesClass{\thispackage}[2025/09/04 Tianyi and Alejandro's resume document class]
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
