@@ -29,7 +29,7 @@
 \pagestyle{fancy}
 \fancyhead[L]{\theauthor\ifbool{emaildefined}{, \@email}{}}
 \fancyhead[R]{\@program}
-\fancyfoot[C]{Page \thepage\ of \pageref{LastPage}}
+\fancyfoot[C]{Page \thepage\ of \pageref*{LastPage}}
 
 \renewcommand{\maketitle}{%
     \thispagestyle{fancy}     % Show header and footer on title page
