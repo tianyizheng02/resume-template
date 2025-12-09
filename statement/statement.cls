@@ -2,7 +2,7 @@
 
 \newcommand{\thispackage}{statement}
 
-\ProvidesClass{\thispackage}[2025/09/04 Tianyi and Alejandro's statement of purpose document class]
+\ProvidesClass{\thispackage}[2025/12/09 Tianyi and Alejandro's statement of purpose document class]
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
@@ -15,6 +15,10 @@
 \RequirePackage{microtype}
 \RequirePackage{titling}
 
+\NewDocumentCommand{\program}{m}{%
+    \gdef\@program{#1}%
+}
+
 \newbool{emaildefined}
 \NewDocumentCommand{\email}{m}{%
     \gdef\@email{#1}%
@@ -24,5 +28,12 @@
 \setlength{\headheight}{15pt}
 \pagestyle{fancy}
 \fancyhead[L]{\theauthor\ifbool{emaildefined}{, \@email}{}}
-\fancyhead[R]{\thetitle}
+\fancyhead[R]{\@program}
 \fancyfoot[C]{Page \thepage\ of \pageref{LastPage}}
+
+\renewcommand{\maketitle}{%
+    \thispagestyle{fancy}     % Show header and footer on title page
+    \begin{center}%
+        \large\textbf{\@title}%
+    \end{center}%
+}
