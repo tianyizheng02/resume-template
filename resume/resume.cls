@@ -58,9 +58,9 @@
 \NewDocumentCommand{\@github}{}{\ClassWarning{\thispackage}{No \noexpand\github provided}}
 
 \newlength{\iconheight}
-\setlength{\iconheight}{1.5em}
+\setlength{\iconheight}{1.25em}
 \newlength{\icondepth}
-\setlength{\icondepth}{-0.5em}
+\setlength{\icondepth}{-\iconheight/3}
 
 \newlength{\namesize}
 \setlength{\namesize}{28pt}
