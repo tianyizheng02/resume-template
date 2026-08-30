@@ -2,7 +2,7 @@
 
 \newcommand{\thispackage}{cv}
 
-\ProvidesClass{\thispackage}[2025/09/04 Tianyi and Alejandro's CV document class]
+\ProvidesClass{\thispackage}[2026/08/29 Tianyi and Alejandro's CV document class]
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
@@ -119,7 +119,7 @@
             Last Updated: \@date%
         }{}
     \end{adjustbox}
-    \bigskip
+    \medskip
     % Unset commands, copied from the definition of \maketitle from the article document class
     % https://tex.stackexchange.com/a/452985/270231
     \let\thanks\relax
