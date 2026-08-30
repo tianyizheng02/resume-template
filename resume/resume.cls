@@ -2,7 +2,7 @@
 
 \newcommand{\thispackage}{resume}
 
-\ProvidesClass{\thispackage}[2025/09/04 Tianyi and Alejandro's resume document class]
+\ProvidesClass{\thispackage}[2026/08/29 Tianyi and Alejandro's resume document class]
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
@@ -130,22 +130,22 @@
 \newcommand{\itemspace}{\medskipamount}
 \newcommand{\linespace}{\smallskipamount}
 \NewDocumentCommand{\link}{om}{\textcolor{blue}{\uline{\phantom{\IfValueTF{#1}{#1}{#2}}}\llap{\contour{white}{\href{#2}{\IfValueTF{#1}{#1}{#2}}}}}}
-\NewDocumentCommand{\activity}{mm}{\textbf{#1} \hfill #2\\\addvspace{\linespace}}
+\NewDocumentCommand{\activity}{mm}{\textbf{#1}\IfBlankF{#2}{\hfill #2}\\\addvspace{\linespace}}
 \NewDocumentCommand{\dates}{mm}{#1 -- #2}
 
 \NewDocumentCommand{\education}{mmmmmomm}{%
-    \textbf{#1}, #2 \hfill #4\\
-    \textit{#3}%
+    \textbf{#1}\IfBlankF{#2}{, #2} \hfill #4\IfBlankTF{#3}{\IfBlankTF{#5}{}{\\}}{\\}%
+    \IfBlankTF{#3}{\IfBlankF{#7}{\textit{#7}}}{\textit{#3}}%
     \IfBlankF{#5}{\hfill \textbf{GPA:} #5/\IfValueTF{#6}{#6}{4.0}}%
-    \IfBlankF{#7}{\\\textit{#7}}\\
+    \IfBlankF{#3}{\IfBlankF{#7}{\\\textit{#7}}}\\
     \IfBlankF{#8}{\nopagebreak#8}
     \par    % \addvspace only works in vertical mode: https://tex.stackexchange.com/a/14694
     \addvspace{\itemspace}%
 }
 
 \NewDocumentEnvironment{experience}{mmmm}{
-    \textbf{#1}, #2 \hfill #4\\
-    \textit{#3}
+    \textbf{#1}\IfBlankF{#2}{, #2} \hfill #4%
+    \IfBlankF{#3}{\\ \textit{#3}}
     \begin{itemize}
 }{
     \end{itemize}
@@ -153,7 +153,7 @@
 }
 
 \NewDocumentEnvironment{project}{mmom}{
-    \textbf{#1} (#2) \IfBlankF{#4}{
+    \textbf{#1}\IfBlankF{#2}{ (#2)} \IfBlankF{#4}{
         \hfill \IfValueT{#3}{\textbf{#3:}} #4
     }
     \begin{itemize}
