@@ -136,21 +136,20 @@
 }
 
 \NewDocumentCommand{\education}{mmmmm}{%
-    \textbf{#1} \hfill #4
-
+    \textbf{#1}\IfBlankF{#4}{\hfill #4}\IfBlankTF{#2}{\IfBlankTF{#3}{}{\\}}{\\}
     \nopagebreak
-    \textit{#2} \hfill #3
+    \IfBlankF{#2}{\textit{#2}}\IfBlankF{#3}{\hfill #3}
 
     \IfBlankF{#5}{\nopagebreak#5}
     \par    % \addvspace only works in vertical mode: https://tex.stackexchange.com/a/14694
     \addvspace{\itemspace}%
 }
 
+% The "entry" command is basically the same as the "education" command, but I kept them separate so that I may choose to style them differently in the future
 \NewDocumentCommand{\experience}{mmmmm}{%
-    \textbf{#1} \hfill #4
-
+    \textbf{#1}\IfBlankF{#4}{\hfill #4}\IfBlankTF{#2}{\IfBlankTF{#3}{}{\\}}{\\}
     \nopagebreak
-    \textit{#2} \hfill #3
+    \IfBlankF{#2}{\textit{#2}}\IfBlankF{#3}{\hfill #3}
 
     \IfBlankF{#5}{\nopagebreak#5}
     \par    % \addvspace only works in vertical mode: https://tex.stackexchange.com/a/14694
@@ -159,9 +158,9 @@
 
 % The "entry" command is basically the same as the "experience" command, but I kept them separate so that I may choose to style them differently in the future
 \NewDocumentCommand{\entry}{mmmmm}{%
-    \textbf{#1}\IfBlankF{#4}{\hfill #4}
-
-    \IfBlankF{#2}{\nopagebreak\textit{#2}}\IfBlankF{#3}{\IfBlankT{#2}{\nopagebreak}\hfill #3}
+    \textbf{#1}\IfBlankF{#4}{\hfill #4}\IfBlankTF{#2}{\IfBlankTF{#3}{}{\\}}{\\}
+    \nopagebreak
+    \IfBlankF{#2}{\textit{#2}}\IfBlankF{#3}{\hfill #3}
 
     \IfBlankF{#5}{\nopagebreak#5}
     \par    % \addvspace only works in vertical mode: https://tex.stackexchange.com/a/14694
