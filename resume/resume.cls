@@ -2,7 +2,7 @@
 
 \newcommand{\thispackage}{resume}
 
-\ProvidesClass{\thispackage}[2026/08/29 Tianyi and Alejandro's resume document class]
+\ProvidesClass{\thispackage}[2026/09/28 Tianyi and Alejandro's resume document class]
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
@@ -11,30 +11,41 @@
 
 \RequirePackage{adjustbox}                  % Boxes with adjustable widths
 \RequirePackage{anyfontsize}                % Font size for name
-\RequirePackage[outline]{contour}           % Contours for links
 \RequirePackage[inline]{enumitem}           % List spacing
 \RequirePackage[margin=0.5in]{geometry}     % Margins
-\RequirePackage[hidelinks]{hyperref}        % Links
+\RequirePackage[
+    hidelinks,
+    colorlinks=true,
+    urlcolor=blue,
+]{hyperref}                                 % Links
 \RequirePackage{microtype}                  % Better typography
 \RequirePackage{tablericons}                % Icons
 \RequirePackage{titlesec}                   % Section headers
-\RequirePackage[normalem]{ulem}             % Underlined text
-\RequirePackage{xcolor}                     % Colored text
 
 
 
-\contourlength{0.075em}             % Contour width for links
-\contournumber{256}                 % Countour count (fidelity) for links
-\renewcommand{\ULdepth}{0.15em}     % Underline depth for links
 
-% Page styling
+% Page styling =================================================================
+
 \pagestyle{empty}
 \linespread{1.3}
 \setlist{nosep}
 
 \setlist[itemize]{leftmargin=1.5em}     % Indentation for itemize bullet points
 
+% Custom section headings
+\setcounter{secnumdepth}{0}  % Disable section numbering
+\titleformat{\section}{\large}{}{}{}[\titlerule]
+\titlespacing{\section}{0em}{0.75em}{0.75em}
 
+\g@addto@macro\bfseries{\boldmath}  % Make math bold in bold text
+
+\raggedright
+
+
+
+
+% Contact Info =================================================================
 
 \NewDocumentCommand{\name}{m}{\gdef\@name{#1}}
 \NewDocumentCommand{\@name}{}{\ClassWarning{\thispackage}{No \noexpand\name provided}}
@@ -57,10 +68,15 @@
 \NewDocumentCommand{\github}{m}{\gdef\@github{#1}}
 \NewDocumentCommand{\@github}{}{\ClassWarning{\thispackage}{No \noexpand\github provided}}
 
+
+
+
+% Header =======================================================================
+
 \newlength{\iconheight}
 \setlength{\iconheight}{1.25em}
 \newlength{\icondepth}
-\setlength{\icondepth}{-\iconheight/3}
+\setlength{\icondepth}{-\iconheight/4}
 
 \newlength{\namesize}
 \setlength{\namesize}{28pt}
@@ -75,16 +91,16 @@
         \begin{tabular}{l@{\qquad}l}
             % The "\the" expands the length variables into their underlying values
             \tablericon[height={\the\iconheight/\the\icondepth}]{mail}
-            \link[\@email]{mailto:\@email}
+            \link{\@email}[mailto:\@email]
             &
             \tablericon[height={\the\iconheight/\the\icondepth}]{brand-linkedin}
-            \link[\@linkedin]{https://www.linkedin.com/in/\@linkedin}\\
+            \link{\@linkedin}[https://www.linkedin.com/in/\@linkedin]\\
 
             \tablericon[height={\the\iconheight/\the\icondepth}]{browser}
-            \link[\@website]{https://\@website}
+            \link{\@website}
             &
             \tablericon[height={\the\iconheight/\the\icondepth}]{brand-github}
-            \link[\@github]{https://github.com/\@github}
+            \link{\@github}[https://github.com/\@github]
         \end{tabular}
     \end{adjustbox}
     \medskip
@@ -121,46 +137,18 @@
 
 
 
-% Custom section headings
-\setcounter{secnumdepth}{0}  % Disable section numbering
-\titleformat{\section}{\large}{}{}{}[\titlerule]
-\titlespacing{\section}{0em}{0.75em}{0.75em}
 
-% Custom commands
-\newcommand{\itemspace}{\medskipamount}
-\newcommand{\linespace}{\smallskipamount}
-\NewDocumentCommand{\link}{om}{\textcolor{blue}{\uline{\phantom{\IfValueTF{#1}{#1}{#2}}}\llap{\contour{white}{\href{#2}{\IfValueTF{#1}{#1}{#2}}}}}}
-\NewDocumentCommand{\activity}{mm}{\textbf{#1}\IfBlankF{#2}{\hfill #2}\\\addvspace{\linespace}}
+% Custom Commands ==============================================================
+
+\newlength{\itemspace}
+\setlength{\itemspace}{1.5ex}
+\newlength{\linespace}
+\setlength{\linespace}{\smallskipamount}
+\NewDocumentCommand{\link}{mo}{%
+    \href{\IfValueTF{#2}{#2}{https://#1}}{\nolinkurl{#1}}%
+}
+
 \NewDocumentCommand{\dates}{mm}{#1 -- #2}
-
-\NewDocumentCommand{\education}{mmmmmomm}{%
-    \textbf{#1}\IfBlankF{#2}{, #2} \hfill #4\IfBlankTF{#3}{\IfBlankTF{#5}{}{\\}}{\\}%
-    \IfBlankTF{#3}{\IfBlankF{#7}{\textit{#7}}}{\textit{#3}}%
-    \IfBlankF{#5}{\hfill \textbf{GPA:} #5/\IfValueTF{#6}{#6}{4.0}}%
-    \IfBlankF{#3}{\IfBlankF{#7}{\\\textit{#7}}}\\
-    \IfBlankF{#8}{\nopagebreak#8}
-    \par    % \addvspace only works in vertical mode: https://tex.stackexchange.com/a/14694
-    \addvspace{\itemspace}%
-}
-
-\NewDocumentEnvironment{experience}{mmmm}{
-    \textbf{#1}\IfBlankF{#2}{, #2} \hfill #4%
-    \IfBlankF{#3}{\\ \textit{#3}}
-    \begin{itemize}
-}{
-    \end{itemize}
-    \addvspace{\itemspace}%
-}
-
-\NewDocumentEnvironment{project}{mmom}{
-    \textbf{#1}\IfBlankF{#2}{ (#2)} \IfBlankF{#4}{
-        \hfill \IfValueT{#3}{\textbf{#3:}} #4
-    }
-    \begin{itemize}
-}{
-    \end{itemize}
-    \addvspace{\itemspace}%
-}
 
 % See enumitem documentation, section 4, inline lists
 \newlist{commalist}{description*}{20}
@@ -170,13 +158,51 @@
     mode=unboxed
 }
 
+
+
+
+% Body =========================================================================
+
+\NewDocumentCommand{\education}{mmmmmomm}{%
+    \begin{minipage}{\textwidth}
+        \textbf{#1}\IfBlankF{#2}{, #2} \hfill \textbf{#4}%
+        \IfBlankF{#3}{\par}\IfBlankF{#5}{\par}%
+        \IfBlankF{#3}{\textit{#3}}\IfBlankF{#5}{\hfill GPA: #5/\IfValueTF{#6}{#6}{4.0}}%
+        \IfBlankF{#7}{\par\textit{#7}}%
+        \IfBlankF{#8}{\par#8}%
+    \end{minipage}
+    \addvspace{\itemspace}%
+}
+
+\NewDocumentEnvironment{experience}{mmmm}{
+    \begin{minipage}{\textwidth}
+        \textbf{#1}\IfBlankF{#2}{, #2} \hfill \textbf{#4}%
+        \IfBlankF{#3}{\par\textit{#3}}%
+        \begin{itemize}
+}{
+        \end{itemize}
+    \end{minipage}
+    \addvspace{\itemspace}%
+}
+
+\NewDocumentEnvironment{project}{mmm}{
+    \begin{minipage}{\textwidth}
+        \textbf{#1}\IfBlankF{#2}{ (#2)} \IfBlankF{#3}{\hfill #3}%
+        \begin{itemize}
+}{
+        \end{itemize}
+    \end{minipage}
+    \addvspace{\itemspace}%
+}
+
 \NewDocumentEnvironment{skills}{m}{
     \textbf{#1:}
     \begin{commalist}
 }{
     \end{commalist}
-
     \addvspace{\linespace}%
 }
 
-\raggedright
+\NewDocumentCommand{\activity}{mm}{%
+    \textbf{#1}\IfBlankF{#2}{\hfill #2}\par\addvspace{\linespace}%
+}
