@@ -2,7 +2,7 @@
 
 \newcommand{\thispackage}{cv}
 
-\ProvidesClass{\thispackage}[2026/08/29 Tianyi and Alejandro's CV document class]
+\ProvidesClass{\thispackage}[2026/09/28 Tianyi and Alejandro's CV document class]
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
@@ -10,8 +10,7 @@
 \LoadClass{article}
 
 \RequirePackage{adjustbox}
-\RequirePackage[backend=biber, maxbibnames=99, sorting=ddnt]{biblatex}
-\RequirePackage[outline]{contour}
+\RequirePackage[maxbibnames=99, sorting=ddnt]{biblatex}
 \RequirePackage[inline]{enumitem}
 \RequirePackage{etoolbox}
 \RequirePackage{fancyhdr}
@@ -19,8 +18,22 @@
 \RequirePackage{lastpage}
 \RequirePackage{microtype}
 \RequirePackage{titlesec}
-\RequirePackage[normalem]{ulem}
-\RequirePackage[hidelinks]{hyperref}
+\RequirePackage{xcolor}
+\RequirePackage{xurl}   % Allow line breaks in bibliography URLs, must place after biblatex
+\RequirePackage{hyperref}
+
+
+
+
+% Styling ======================================================================
+
+% Only color URLs, all other links should match text color
+\hypersetup{
+    hidelinks,
+    colorlinks=true,
+    allcolors=.,
+    urlcolor=blue,
+}
 
 \pagestyle{fancy}
 \fancyhfoffset{0pt}
@@ -40,22 +53,14 @@
 \setlist[itemize]{leftmargin=1.5em}     % Indentation for itemize bullet points
 \setlist[enumerate]{leftmargin=1.5em}   % Indentation for enumerate numbers
 
-\newcommand{\itemspace}{\medskipamount}
+\newlength{\itemspace}
+\setlength{\itemspace}{2ex}
 
-% See enumitem documentation, section 4, inline lists
-\newlist{commalist}{description*}{20}
-\setlist[commalist]{
-    itemjoin={{, }},
-    afterlabel={},      % Remove space after non-existent label
-    mode=unboxed
-}
 
-\contourlength{0.075em}             % Contour width for links
-\contournumber{256}                 % Countour count (fidelity) for links
-\renewcommand{\ULdepth}{0.175em}     % Underline depth for links
 
-\NewDocumentCommand{\link}{om}{\textcolor{blue}{\uline{\phantom{\IfValueTF{#1}{#1}{#2}}}\llap{\contour{white}{\href{#2}{\IfValueTF{#1}{#1}{#2}}}}}}
-\NewDocumentCommand{\dates}{mm}{#1 -- #2}
+
+
+% Contact Info =================================================================
 
 \NewDocumentCommand{\email}{m}{\gdef\@email{#1}}
 \NewDocumentCommand{\@email}{}{\ClassWarning{\thispackage}{No \noexpand\email provided}}
@@ -90,7 +95,9 @@
 
 
 
-\newcommand{\separator}{~\textbullet~}
+
+% Header =======================================================================
+
 \RenewDocumentCommand{\maketitle}{}{%
     \ifbool{addressdefined}{%
         \begin{center}
@@ -105,14 +112,14 @@
     }
     \hfill
     \begin{adjustbox}{valign=t, stack=l}
-        Email: \link[\@email]{mailto:\@email}
+        Email: \href{mailto:\@email}{\nolinkurl{\@email}}
 
         \ifbool{phonedefined}{%
             Phone: \@phone%
         }{}
 
         \ifbool{homepagedefined}{%
-            Homepage: \link[\@homepage]{https://\@homepage}%
+            Homepage: \href{https://\@homepage}{\nolinkurl{\@homepage}}%
         }{}
 
         \ifbool{datedefined}{%
@@ -135,38 +142,50 @@
     \let\and\relax
 }
 
-\NewDocumentCommand{\education}{mmmmm}{%
-    \textbf{#1}\IfBlankF{#4}{\hfill #4}\IfBlankTF{#2}{\IfBlankTF{#3}{}{\\}}{\\}
-    \nopagebreak
-    \IfBlankF{#2}{\textit{#2}}\IfBlankF{#3}{\hfill #3}
 
-    \IfBlankF{#5}{\nopagebreak#5}
-    \par    % \addvspace only works in vertical mode: https://tex.stackexchange.com/a/14694
+
+
+% Body =========================================================================
+
+\NewDocumentCommand{\education}{mmmmm}{%
+    \noindent
+    \begin{minipage}{\textwidth}
+        \textbf{#1}\IfBlankF{#4}{\hfill #4}%
+        \IfBlankF{#2}{\par}\IfBlankF{#3}{\par}%
+        \IfBlankF{#2}{\textit{#2}}\IfBlankF{#3}{\hfill #3}%
+        \IfBlankF{#5}{\par #5}
+    \end{minipage}
     \addvspace{\itemspace}%
 }
 
 % The "entry" command is basically the same as the "education" command, but I kept them separate so that I may choose to style them differently in the future
 \NewDocumentCommand{\experience}{mmmmm}{%
-    \textbf{#1}\IfBlankF{#4}{\hfill #4}\IfBlankTF{#2}{\IfBlankTF{#3}{}{\\}}{\\}
-    \nopagebreak
-    \IfBlankF{#2}{\textit{#2}}\IfBlankF{#3}{\hfill #3}
-
-    \IfBlankF{#5}{\nopagebreak#5}
-    \par    % \addvspace only works in vertical mode: https://tex.stackexchange.com/a/14694
+    \noindent
+    \begin{minipage}{\textwidth}
+        \textbf{#1}\IfBlankF{#4}{\hfill #4}%
+        \IfBlankF{#2}{\par}\IfBlankF{#3}{\par}%
+        \IfBlankF{#2}{\textit{#2}}\IfBlankF{#3}{\hfill #3}%
+        \IfBlankF{#5}{\par #5}
+    \end{minipage}
     \addvspace{\itemspace}%
 }
 
 % The "entry" command is basically the same as the "experience" command, but I kept them separate so that I may choose to style them differently in the future
 \NewDocumentCommand{\entry}{mmmmm}{%
-    \textbf{#1}\IfBlankF{#4}{\hfill #4}\IfBlankTF{#2}{\IfBlankTF{#3}{}{\\}}{\\}
-    \nopagebreak
-    \IfBlankF{#2}{\textit{#2}}\IfBlankF{#3}{\hfill #3}
-
-    \IfBlankF{#5}{\nopagebreak#5}
-    \par    % \addvspace only works in vertical mode: https://tex.stackexchange.com/a/14694
+    \noindent
+    \begin{minipage}{\textwidth}
+        \textbf{#1}\IfBlankF{#4}{\hfill #4}%
+        \IfBlankF{#2}{\par}\IfBlankF{#3}{\par}%
+        \IfBlankF{#2}{\textit{#2}}\IfBlankF{#3}{\hfill #3}%
+        \IfBlankF{#5}{\par #5}
+    \end{minipage}
     \addvspace{\itemspace}
 }
 
+
+
+
+% Publications =================================================================
 
 % Bold author name in publications: https://tex.stackexchange.com/a/327046
 \DeclareDocumentCommand{\boldbibname}{mmm}{%
@@ -177,16 +196,23 @@
 
 \RenewDocumentCommand{\mkbibnamegiven}{m}{%
     \ifboolexpr{
-        ( test {\ifdefequal{\@firstname}{\namepartgiven}} or test {\ifdefequal{\@firstinit}{\namepartgiven}} )
+        (
+            test {\ifdefequal{\@firstname}{\namepartgiven}}
+            or test {\ifdefequal{\@firstinit}{\namepartgiven}}
+        )
         and test {\ifdefequal{\@lastname}{\namepartfamily}}
     }{\mkbibbold{#1}}{#1}%
 }
 
 \RenewDocumentCommand{\mkbibnamefamily}{m}{%
     \ifboolexpr{
-        ( test {\ifdefequal{\@firstname}{\namepartgiven}} or test {\ifdefequal{\@firstinit}{\namepartgiven}} )
+        (
+            test {\ifdefequal{\@firstname}{\namepartgiven}}
+            or test {\ifdefequal{\@firstinit}{\namepartgiven}}
+        )
         and test {\ifdefequal{\@lastname}{\namepartfamily}}
     }{\mkbibbold{#1}}{#1}%
 }
 
-\raggedright
+% Controls spacing between entries and labels ([1], etc), set to 2\labelsep by default
+\setlength{\biblabelsep}{\labelsep}
