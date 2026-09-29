@@ -161,37 +161,37 @@
 
 % Body =========================================================================
 
-\NewDocumentCommand{\education}{mmmmm}{%
+\NewDocumentCommand{\education}{mmmmmm}{%
     \noindent
     \begin{minipage}{\textwidth}
-        \textbf{#1}\IfBlankF{#4}{\hfill #4}%
-        \IfBlankF{#2}{\par}\IfBlankF{#3}{\par}%
-        \IfBlankF{#2}{\textit{#2}}\IfBlankF{#3}{\hfill #3}%
-        \IfBlankF{#5}{\par #5}
+        \textbf{#1}\IfBlankF{#2}{, #2}\IfBlankF{#3}{\hfill #3}%
+        \IfBlankF{#4}{\par}\IfBlankF{#5}{\par}%
+        \IfBlankF{#4}{\textit{#4}}\IfBlankF{#5}{\hfill #5}%
+        \IfBlankF{#6}{\par #6}
     \end{minipage}
     \addvspace{\itemspace}%
 }
 
 % The "entry" command is basically the same as the "education" command, but I kept them separate so that I may choose to style them differently in the future
-\NewDocumentCommand{\experience}{mmmmm}{%
+\NewDocumentCommand{\experience}{mmmmmm}{%
     \noindent
     \begin{minipage}{\textwidth}
-        \textbf{#1}\IfBlankF{#4}{\hfill #4}%
-        \IfBlankF{#2}{\par}\IfBlankF{#3}{\par}%
-        \IfBlankF{#2}{\textit{#2}}\IfBlankF{#3}{\hfill #3}%
-        \IfBlankF{#5}{\par #5}
+        \textbf{#1}\IfBlankF{#2}{, #2}\IfBlankF{#3}{\hfill #3}%
+        \IfBlankF{#4}{\par}\IfBlankF{#5}{\par}%
+        \IfBlankF{#4}{\textit{#4}}\IfBlankF{#5}{\hfill #5}%
+        \IfBlankF{#6}{\par #6}
     \end{minipage}
     \addvspace{\itemspace}%
 }
 
 % The "entry" command is basically the same as the "experience" command, but I kept them separate so that I may choose to style them differently in the future
-\NewDocumentCommand{\entry}{mmmmm}{%
+\NewDocumentCommand{\entry}{mmmmmm}{%
     \noindent
     \begin{minipage}{\textwidth}
-        \textbf{#1}\IfBlankF{#4}{\hfill #4}%
-        \IfBlankF{#2}{\par}\IfBlankF{#3}{\par}%
-        \IfBlankF{#2}{\textit{#2}}\IfBlankF{#3}{\hfill #3}%
-        \IfBlankF{#5}{\par #5}
+        \textbf{#1}\IfBlankF{#2}{, #2}\IfBlankF{#3}{\hfill #3}%
+        \IfBlankF{#4}{\par}\IfBlankF{#5}{\par}%
+        \IfBlankF{#4}{\textit{#4}}\IfBlankF{#5}{\hfill #5}%
+        \IfBlankF{#6}{\par #6}
     \end{minipage}
     \addvspace{\itemspace}
 }
