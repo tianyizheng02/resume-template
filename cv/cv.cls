@@ -17,6 +17,7 @@
 \RequirePackage[margin=1in]{geometry}
 \RequirePackage{lastpage}
 \RequirePackage{microtype}
+\RequirePackage{parskip}
 \RequirePackage{titlesec}
 \RequirePackage{xcolor}
 \RequirePackage{xurl}   % Allow line breaks in bibliography URLs, must place after biblatex
@@ -54,7 +55,7 @@
 \setlist[enumerate]{leftmargin=1.5em}   % Indentation for enumerate numbers
 
 \newlength{\itemspace}
-\setlength{\itemspace}{2ex}
+\setlength{\itemspace}{1ex}
 
 
 
