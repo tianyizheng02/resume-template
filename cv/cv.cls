@@ -68,6 +68,12 @@
     \booltrue{emaildefined}%
 }
 
+\newbool{pronounsdefined}
+\NewDocumentCommand{\pronouns}{m}{%
+    \gdef\@pronouns{#1}%
+    \booltrue{pronounsdefined}%
+}
+
 \newbool{phonedefined}
 \NewDocumentCommand{\phone}{m}{%
     \gdef\@phone{#1}%
@@ -105,12 +111,14 @@
     \ifbool{addressdefined}{%
         \begin{center}
             {\Huge\bfseries\@author}
+            \ifbool{pronounsdefined}{\LARGE\ (\@pronouns)}{}
         \end{center}
 
         \@address
     }{%
         \begin{adjustbox}{valign=t, stack=l}
             {\Huge\bfseries\@author}
+            \ifbool{pronounsdefined}{\LARGE\ (\@pronouns)}{}
         \end{adjustbox}
     }
     \hfill
