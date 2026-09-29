@@ -62,8 +62,11 @@
 
 % Contact Info =================================================================
 
-\NewDocumentCommand{\email}{m}{\gdef\@email{#1}}
-\NewDocumentCommand{\@email}{}{\ClassWarning{\thispackage}{No \noexpand\email provided}}
+\newbool{emaildefined}
+\NewDocumentCommand{\email}{m}{%
+    \gdef\@email{#1}%
+    \booltrue{emaildefined}%
+}
 
 \newbool{phonedefined}
 \NewDocumentCommand{\phone}{m}{%
@@ -112,7 +115,9 @@
     }
     \hfill
     \begin{adjustbox}{valign=t, stack=l}
-        Email: \href{mailto:\@email}{\nolinkurl{\@email}}
+        \ifbool{emaildefined}{%
+            Email: \href{mailto:\@email}{\nolinkurl{\@email}}%
+        }{}
 
         \ifbool{phonedefined}{%
             Phone: \@phone%
@@ -123,7 +128,7 @@
         }{}
 
         \ifbool{datedefined}{%
-            Last Updated: \@date%
+            Updated: \@date%
         }{}
     \end{adjustbox}
     \medskip
