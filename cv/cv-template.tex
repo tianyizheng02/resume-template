@@ -2,69 +2,103 @@
 
 \usepackage[sfdefault, mono=false]{libertinus}
 \usepackage[sansmath]{libertinust1math}
+\usepackage{lipsum}
 
 % \hypersetup{nolinks=true}           % Disable hyperlinks
 \geometry{margin=0.75in}
 
+
+
+
 \title{Curriculum Vitae}            % Not displayed
 \author{Your Name}
+
+% These are all optional
+\pronouns{they/them}
 \email{email@school.edu}
 \phone{(123) 456-7890}
 \homepage{yourhomepage.com}
+\date{Current Date}
+
+% Also optional, but header layout changes if no address given
 \address{%
-    Department of Underwater Basketweaving\\
+    Department of Worth Deciding\\
     University in Delaware\\
     123 Main Street\\
-    CIty, ST 12345
+    Newark, Vanuatu
 }
-\date{Current Date}
 
 \addbibresource{publications.bib}
 \boldbibname{Your}{Y.}{Name}
+
+
 
 
 \begin{document}
 
 \maketitle
 
+
+
+
 \section{Education}
-\education{University in Delaware}
-{Ph.D. in Underwater Basketweaving}
-{City, ST}{\dates{Month Year}{Month Year}}{
+
+% Reference: https://youtu.be/biYciU1uiUw
+\education{University in Delaware}{Newark, Vanuatu}
+{Month Year -- Month Year}
+{Ph.D. in Worth Deciding}{}{%
     \begin{itemize}
-        \item Thesis: \textit{Upside-Down Underwater Basketweaving: An Exploration of Alternative Methods to Traditional Pre-Columbian Underwater Basketweaving Techniques}
+        \item Thesis: \textit{Contrepreneurs: The Mikkelsen Twins}
         \item Advisor: Dr. Edward Viser
     \end{itemize}
 }
 
-\education{University in Delaware}
-{B.S. in Interpretive Dance, Minor in String Theory}
-{City, ST}{\dates{Month Year}{Month Year}}{}
-
-
-\section{Work Experience}
-\experience{Location}
-{Position}
-{City, ST}{\dates{Month Year}{Month Year}}{
+\education{University in Delaware}{Newark, Vanuatu}
+{Month Year -- Month Year}
+{B.S. in Worth Deciding}{}{%
     \begin{itemize}
-        \item Description (can leave empty)
+        \item Jointly conferred by the Brad Default Presidential Academy
     \end{itemize}
 }
 
 
+
+
+\section{Work Experience}
+
+\experience{Position}
+{Location}
+{Month Year -- Month Year}{Job Title}{}{%
+    \begin{itemize}
+        \item \lipsum[1][1-3]
+    \end{itemize}
+}
+
+\experience{Position}
+{Location}
+{Month Year -- Month Year}{Job Title}{}{%
+    \begin{itemize}
+        \item \lipsum[1][4-5]
+    \end{itemize}
+}
+
+
+
+
 \section{Publications}
+
 \nocite{*}
 \printbibliography[heading=none]
 
 
+
+
 \section{Other Stuff}
-\entry{Presentation Title}
-{Subtitle}
-{City, ST}{Date}
-{
-    \begin{itemize}
-        \item Description (can leave empty)
-    \end{itemize}
-}
+
+\entry{Doing Stuff}{Location}
+{Month Year -- Month Year}{}{}{}
+
+\entry{I'm Stuff}{Location}
+{Month Year -- Month Year}{}{}{}
 
 \end{document}

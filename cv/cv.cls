@@ -201,7 +201,9 @@
 
 % Publications =================================================================
 
-% Bold author name in publications: https://tex.stackexchange.com/a/327046
+% Bold author name in publications
+% Adapted from https://tex.stackexchange.com/a/327046
+% NOTE: Doesn't work correctly for anything beyond basic first + last name
 \DeclareDocumentCommand{\boldbibname}{mmm}{%
     \def\@firstname{#1}%
     \def\@firstinit{#2}%

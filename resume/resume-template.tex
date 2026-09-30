@@ -7,6 +7,9 @@
 % \geometry{margin=1in}                   % Change margins
 % \hypersetup{nolinks=true}               % Disable hyperlinks
 
+
+
+
 \name{My Name}
 \pronouns{they/them}                    % Optional, can comment out
 \email{myname@domain.com}
@@ -16,16 +19,23 @@
 
 
 
+
 \begin{document}
 
 \makeheader
 
 
 
+
 \section*{Education}
-\education{University Name}{Location}{Degree}{\dates{Start Date}{End Date}}{X.XX}{Minors, honors, or additional comments}{
+
+\education{University Name}{Location}
+{Degree}
+{\dates{Start Date}{End Date}}
+{X.XX}
+{Minors, honors, or additional comments}{
     \begin{itemize}
-        \item Relevant Coursework:
+        \item Coursework:
         \begin{commalist}
             \item Course 1
             \item Course 2
@@ -36,49 +46,70 @@
             \item Course 7
             \item Course 8
             \item Course 9
+            \item Course 10
         \end{commalist}
     \end{itemize}
 }
 
-\education{University Name}{Location}{Degree}{\dates{Start Date}{End Date}}{X.XX}{Minors, honors, or additional comments}{}
+\education{University Name}{Location}
+{Degree}
+{\dates{Start Date}{End Date}}
+{X.XX}
+{Minors, honors, or additional comments}{}
+
 
 
 
 \section*{Experience}
-\begin{experience}{Company Name}{Location}{Job Title}{\dates{Start Date}{Present}}
-    \item \lipsum[1][1]
-    \item \lipsum[1][2]
-    \item \lipsum[1][3]
+
+\begin{experience}{Company Name}{Location}
+    {Job Title}
+    {\dates{Start Date}{Present}}
+    \item \lipsum[1][1-2]
+    \item \lipsum[1][3-4]
+    \item \lipsum[1][5-6]
 \end{experience}
 
-\begin{experience}{Company Name}{Location}{Job Title}{\dates{Start Date}{End Date}}
-    \item \lipsum[1][4]
-    \item \lipsum[1][5]
-    \item \lipsum[1][6]
+\begin{experience}{Company Name}{Location}
+    {Job Title}
+    {\dates{Start Date}{End Date}}
+    \item \lipsum[1][7-10]
+    \item \lipsum[1][11-12]
+    \item \lipsum[1][13-15]
 \end{experience}
 
-\begin{experience}{Company Name}{Location}{Job Title}{\dates{Start Date}{End Date}}
-    \item \lipsum[1][7]
-    \item \lipsum[1][8]
-    \item \lipsum[1][9]
+\begin{experience}{Company Name}{Location}
+    {Job Title}
+    {\dates{Start Date}{End Date}}
+    \item \lipsum[1][16-17]
+    \item \lipsum[2][1-3]
+    \item \lipsum[2][4]
 \end{experience}
+
 
 
 
 \section*{Projects}
-\begin{project}{Project Name}{List, Stack, Here}[GitHub]{\link[some.url/link]{https://some.url/link}}
-    \item \lipsum[1][10]
-    \item \lipsum[1][11]
+
+\begin{project}{Project Name}
+    {List, Stack, Here}
+    {\textbf{GitHub:} \link{some.url/link}}
+    \item \lipsum[2][5-9]
+    \item \lipsum[2][10-12]
 \end{project}
 
-\begin{project}{Project Name}{List, Stack, Here}{\dates{Start Date}{End Date}}
-    \item \lipsum[1][12]
-    \item \lipsum[1][13]
+\begin{project}{Project Name}
+    {List, Stack, Here}
+    {\dates{Start Date}{End Date}}
+    \item \lipsum[3][1-2]
+    \item \lipsum[3][3-8]
 \end{project}
+
 
 
 
 \section*{Skills}
+
 \begin{skills}{Languages}
     \item List
     \item Languages
@@ -94,13 +125,15 @@
 
 
 \section*{Activities}
-\activity{Activity Name --- Some Position}{\dates{Start Date}{Present}}
 
-\activity{Activity Name --- Some Award}{Date}
+\activity{Activity Name --- Some Position}
+{\dates{Start Date}{Present}}
 
-\activity{Activity Name}{\dates{Start Date}{End Date}}
+\activity{Activity Name --- Some Award}
+{Date}
 
-\activity{Activity Name}{\dates{Start Date}{End Date}}
+\activity{Activity Name}
+{\dates{Start Date}{End Date}}
 
 
 
