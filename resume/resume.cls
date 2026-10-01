@@ -2,7 +2,7 @@
 
 \newcommand{\thispackage}{resume}
 
-\ProvidesClass{\thispackage}[2026/09/28 Tianyi and Alejandro's resume document class]
+\ProvidesClass{\thispackage}[2026/10/01 Tianyi and Alejandro's resume document class]
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
@@ -45,99 +45,6 @@
 
 
 
-% Contact Info =================================================================
-
-\NewDocumentCommand{\name}{m}{\gdef\@name{#1}}
-\NewDocumentCommand{\@name}{}{\ClassWarning{\thispackage}{No \noexpand\name provided}}
-
-\newbool{pronounsdefined}
-\NewDocumentCommand{\pronouns}{m}{%
-    \gdef\@pronouns{#1}%
-    \booltrue{pronounsdefined}%
-}
-
-\NewDocumentCommand{\email}{m}{\gdef\@email{#1}}
-\NewDocumentCommand{\@email}{}{\ClassWarning{\thispackage}{No \noexpand\email provided}}
-
-\NewDocumentCommand{\linkedin}{m}{\gdef\@linkedin{#1}}
-\NewDocumentCommand{\@linkedin}{}{\ClassWarning{\thispackage}{No \noexpand\linkedin provided}}
-
-\NewDocumentCommand{\website}{m}{\gdef\@website{#1}}
-\NewDocumentCommand{\@website}{}{\ClassWarning{\thispackage}{No \noexpand\website provided}}
-
-\NewDocumentCommand{\github}{m}{\gdef\@github{#1}}
-\NewDocumentCommand{\@github}{}{\ClassWarning{\thispackage}{No \noexpand\github provided}}
-
-
-
-
-% Header =======================================================================
-
-\newlength{\iconheight}
-\setlength{\iconheight}{1.25em}
-\newlength{\icondepth}
-\setlength{\icondepth}{-\iconheight/4}
-
-\newlength{\namesize}
-\setlength{\namesize}{28pt}
-\NewDocumentCommand{\makeheader}{}{
-    \begin{adjustbox}{valign=t}
-        \textbf{\fontsize{\namesize}{1.2\namesize}\selectfont\@name}
-        \ifbool{pronounsdefined}{\fontsize{0.75\namesize}{0.9\namesize}\selectfont\ (\@pronouns)}{}
-    \end{adjustbox}
-    \hfill
-    \begin{adjustbox}{valign=t}
-        \setlength{\tabcolsep}{0em}
-        \begin{tabular}{l@{\qquad}l}
-            % The "\the" expands the length variables into their underlying values
-            \tablericon[height={\the\iconheight/\the\icondepth}]{mail}
-            \link{\@email}[mailto:\@email]
-            &
-            \tablericon[height={\the\iconheight/\the\icondepth}]{brand-linkedin}
-            \link{\@linkedin}[https://www.linkedin.com/in/\@linkedin]\\
-
-            \tablericon[height={\the\iconheight/\the\icondepth}]{browser}
-            \link{\@website}
-            &
-            \tablericon[height={\the\iconheight/\the\icondepth}]{brand-github}
-            \link{\@github}[https://github.com/\@github]
-        \end{tabular}
-    \end{adjustbox}
-    \medskip
-    % Unset commands, modeled of the definition of \maketitle from the article document class
-    % https://tex.stackexchange.com/a/452985/270231
-    \let\makeheader\relax
-    \let\name\relax
-    \let\@name\@empty
-    \let\pronouns\relax
-    \let\@pronouns\@empty
-    \let\email\relax
-    \let\@email\@empty
-    \let\linkedin\relax
-    \let\@linkedin\@empty
-    \let\website\relax
-    \let\@website\@empty
-    \let\github\relax
-    \let\@github\@empty
-}
-
-% Unset unused commands, copied from the definition of \maketitle from the article document class
-% https://tex.stackexchange.com/a/452985/270231
-\let\thanks\relax
-\let\maketitle\relax
-\let\@maketitle\relax
-\let\@thanks\@empty
-\let\@author\@empty
-\let\@date\@empty
-\let\@title\@empty
-\let\title\relax
-\let\author\relax
-\let\date\relax
-\let\and\relax
-
-
-
-
 % Custom Commands ==============================================================
 
 \newlength{\itemspace}
@@ -157,6 +64,132 @@
     afterlabel={},      % Remove space after non-existent label
     mode=unboxed
 }
+
+
+
+
+% Contact Info =================================================================
+
+\NewDocumentCommand{\name}{m}{\gdef\@name{#1}}
+\NewDocumentCommand{\@name}{}{\ClassWarning{\thispackage}{No \noexpand\name provided}}
+
+\newbool{pronounsdefined}
+\NewDocumentCommand{\pronouns}{m}{%
+    \gdef\@pronouns{#1}%
+    \booltrue{pronounsdefined}%
+}
+
+\newcommand{\prefixemail}{mailto:}
+\newcommand{\prefixlinkedin}{https://www.linkedin.com/in/}
+\newcommand{\prefixgithub}{https://github.com/}
+
+\ExplSyntaxOn
+
+% Define dedicated local variables instead of relying on generic scratch variables
+\int_new:N \l__resume_columns_int
+\tl_new:N \l__resume_table_spec_tl
+
+% Holds pairs {icon_name}{formatted_val}
+\seq_new:N \g_resume_contacts_seq
+
+% Contact info tuples added to sequence in call order
+\NewDocumentCommand{\email}{m}{
+  \seq_put_right:Nn \g_resume_contacts_seq { {mail}{\link{#1}[\prefixemail#1]} }
+}
+\NewDocumentCommand{\linkedin}{m}{
+  \seq_put_right:Nn \g_resume_contacts_seq { {brand-linkedin}{\link{#1}[\prefixlinkedin#1]} }
+}
+\NewDocumentCommand{\website}{m}{
+  \seq_put_right:Nn \g_resume_contacts_seq { {browser}{\link{#1}} }
+}
+\NewDocumentCommand{\github}{m}{
+  \seq_put_right:Nn \g_resume_contacts_seq { {brand-github}{\link{#1}[\prefixgithub#1]} }
+}
+
+\cs_new:Nn \__resume_format_contact:nn {
+    \tablericon[height={\the\iconheight/\the\icondepth}]{#1}~#2
+}
+
+% \printcontacts[N], where N is number of columns
+\NewDocumentCommand{\printcontacts}{O{2}} {
+    \int_compare:nNnT { \seq_count:N \g_resume_contacts_seq } > { 0 } {
+        % Construct table spec based on number of columns
+        \int_set:Nn \l__resume_columns_int {#1}
+        \tl_clear:N \l__resume_table_spec_tl
+        \int_step_inline:nn \l__resume_columns_int {
+            \tl_put_right:Nn \l__resume_table_spec_tl { l }
+            \int_compare:nNnT { ##1 } < { \l__resume_columns_int } {
+                \tl_put_right:Nn \l__resume_table_spec_tl { @{\qquad} }
+            }
+        }
+
+        \begin{tabular}{ \l__resume_table_spec_tl }
+            \seq_map_indexed_inline:Nn \g_resume_contacts_seq {
+                \__resume_format_contact:nn ##2
+
+                % Handle column separators and row breaks
+                \int_compare:nTF { \int_mod:nn { ##1 } { \l__resume_columns_int } == 0 } {
+                    \int_compare:nNnT { ##1 } < { \seq_count:N \g_resume_contacts_seq } { \\ }
+                } {
+                    \int_compare:nNnT { ##1 } < { \seq_count:N \g_resume_contacts_seq } { & }
+                }
+            }
+        \end{tabular}
+    }
+}
+
+\ExplSyntaxOff
+
+
+
+
+% Header =======================================================================
+
+\newlength{\iconheight}
+\setlength{\iconheight}{1.25em}
+\newlength{\icondepth}
+\setlength{\icondepth}{-\iconheight/4}
+
+\newlength{\namesize}
+\setlength{\namesize}{28pt}
+
+\NewDocumentCommand{\makeheader}{}{
+    \begin{adjustbox}{valign=t}
+        \textbf{\fontsize{\namesize}{1.2\namesize}\selectfont\@name}
+        \ifbool{pronounsdefined}{\fontsize{0.75\namesize}{0.9\namesize}\selectfont\ (\@pronouns)}{}
+    \end{adjustbox}%
+    \hfill
+    \begin{adjustbox}{valign=t}
+        \setlength{\tabcolsep}{0em}
+        \printcontacts[2]
+    \end{adjustbox}%
+    \medskip
+    % Unset commands, modeled of the definition of \maketitle from the article document class
+    % https://tex.stackexchange.com/a/452985/270231
+    \let\makeheader\relax
+    \let\name\relax
+    \let\@name\@empty
+    \let\pronouns\relax
+    \let\@pronouns\@empty
+    \let\email\relax
+    \let\linkedin\relax
+    \let\website\relax
+    \let\github\relax
+}
+
+% Unset unused commands, copied from the definition of \maketitle from the article document class
+% https://tex.stackexchange.com/a/452985/270231
+\let\thanks\relax
+\let\maketitle\relax
+\let\@maketitle\relax
+\let\@thanks\@empty
+\let\@author\@empty
+\let\@date\@empty
+\let\@title\@empty
+\let\title\relax
+\let\author\relax
+\let\date\relax
+\let\and\relax
 
 
 
