@@ -96,17 +96,20 @@
 \NewDocumentCommand{\email}{m}{
   \seq_put_right:Nn \g_resume_contacts_seq { {mail}{\link{#1}[\prefixemail#1]} }
 }
+\NewDocumentCommand{\website}{m}{
+  \seq_put_right:Nn \g_resume_contacts_seq { {browser}{\link{#1}} }
+}
 \NewDocumentCommand{\phone}{m}{
   \seq_put_right:Nn \g_resume_contacts_seq { {phone}{#1} }
 }
 \NewDocumentCommand{\linkedin}{m}{
   \seq_put_right:Nn \g_resume_contacts_seq { {brand-linkedin}{\link{#1}[\prefixlinkedin#1]} }
 }
-\NewDocumentCommand{\website}{m}{
-  \seq_put_right:Nn \g_resume_contacts_seq { {browser}{\link{#1}} }
-}
 \NewDocumentCommand{\github}{m}{
   \seq_put_right:Nn \g_resume_contacts_seq { {brand-github}{\link{#1}[\prefixgithub#1]} }
+}
+\NewDocumentCommand{\note}{m}{
+  \seq_put_right:Nn \g_resume_contacts_seq { {info-circle}{#1} }
 }
 
 \cs_new:Nn \__resume_format_contact:nn {
@@ -179,6 +182,7 @@
     \let\phone\relax
     \let\linkedin\relax
     \let\github\relax
+    \let\note\relax
 }
 
 % Unset unused commands, copied from the definition of \maketitle from the article document class
