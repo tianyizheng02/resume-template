@@ -73,12 +73,6 @@
 \NewDocumentCommand{\name}{m}{\gdef\@name{#1}}
 \NewDocumentCommand{\@name}{}{\ClassWarning{\thispackage}{No \noexpand\name provided}}
 
-\newbool{pronounsdefined}
-\NewDocumentCommand{\pronouns}{m}{%
-    \gdef\@pronouns{#1}%
-    \booltrue{pronounsdefined}%
-}
-
 \newbool{contactcolsdefined}
 \NewDocumentCommand{\contactcols}{m}{%
     \gdef\@contactcols{#1}%
@@ -167,7 +161,6 @@
 \NewDocumentCommand{\makeheader}{}{
     \begin{adjustbox}{valign=t}
         \textbf{\fontsize{\namesize}{1.2\namesize}\selectfont\@name}
-        \ifbool{pronounsdefined}{\fontsize{0.75\namesize}{0.9\namesize}\selectfont\ (\@pronouns)}{}
     \end{adjustbox}%
     \hfill
     \begin{adjustbox}{valign=t}
@@ -180,8 +173,6 @@
     \let\makeheader\relax
     \let\name\relax
     \let\@name\@empty
-    \let\pronouns\relax
-    \let\@pronouns\@empty
     \let\email\relax
     \let\website\relax
     \let\phone\relax
