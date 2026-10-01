@@ -21,7 +21,7 @@
 \RequirePackage{titlesec}
 \RequirePackage{xcolor}
 \RequirePackage{xurl}   % Allow line breaks in bibliography URLs, must place after biblatex
-\RequirePackage{hyperref}
+\RequirePackage[pdfusetitle]{hyperref}  % Set PDF metadata title and author from \title and \author, must be loaded at import
 
 
 
