@@ -102,6 +102,9 @@
 \NewDocumentCommand{\phone}{m}{
   \seq_put_right:Nn \g_resume_contacts_seq { {phone}{#1} }
 }
+\NewDocumentCommand{\location}{m}{
+  \seq_put_right:Nn \g_resume_contacts_seq { {map-pin}{#1} }
+}
 \NewDocumentCommand{\linkedin}{m}{
   \seq_put_right:Nn \g_resume_contacts_seq { {brand-linkedin}{\link{#1}[\prefixlinkedin#1]} }
 }
@@ -176,6 +179,7 @@
     \let\email\relax
     \let\website\relax
     \let\phone\relax
+    \let\location\relax
     \let\linkedin\relax
     \let\github\relax
     \let\note\relax
