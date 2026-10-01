@@ -79,6 +79,12 @@
     \booltrue{pronounsdefined}%
 }
 
+\newbool{contactcolsdefined}
+\NewDocumentCommand{\contactcols}{m}{%
+    \gdef\@contactcols{#1}%
+    \booltrue{contactcolsdefined}%
+}
+
 \newcommand{\prefixemail}{mailto:}
 \newcommand{\prefixlinkedin}{https://www.linkedin.com/in/}
 \newcommand{\prefixgithub}{https://github.com/}
@@ -116,11 +122,10 @@
     \tablericon[height={\the\iconheight/\the\icondepth}]{#1}~#2
 }
 
-% \printcontacts[N], where N is number of columns
-\NewDocumentCommand{\printcontacts}{O{2}} {
+\NewDocumentCommand{\printcontacts}{} {
     \int_compare:nNnT { \seq_count:N \g_resume_contacts_seq } > { 0 } {
         % Construct table spec based on number of columns
-        \int_set:Nn \l__resume_columns_int {#1}
+        \int_set:Nn \l__resume_columns_int {\ifbool{contactcolsdefined}{\@contactcols}{3}}
         \tl_clear:N \l__resume_table_spec_tl
         \int_step_inline:nn \l__resume_columns_int {
             \tl_put_right:Nn \l__resume_table_spec_tl { l }
@@ -167,10 +172,10 @@
     \hfill
     \begin{adjustbox}{valign=t}
         \setlength{\tabcolsep}{0em}
-        \printcontacts[3]
+        \printcontacts
     \end{adjustbox}%
     \medskip
-    % Unset commands, modeled of the definition of \maketitle from the article document class
+    % Unset commands, modeled off the definition of \maketitle from the article document class
     % https://tex.stackexchange.com/a/452985/270231
     \let\makeheader\relax
     \let\name\relax
