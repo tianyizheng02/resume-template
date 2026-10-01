@@ -96,6 +96,9 @@
 \NewDocumentCommand{\email}{m}{
   \seq_put_right:Nn \g_resume_contacts_seq { {mail}{\link{#1}[\prefixemail#1]} }
 }
+\NewDocumentCommand{\phone}{m}{
+  \seq_put_right:Nn \g_resume_contacts_seq { {phone}{#1} }
+}
 \NewDocumentCommand{\linkedin}{m}{
   \seq_put_right:Nn \g_resume_contacts_seq { {brand-linkedin}{\link{#1}[\prefixlinkedin#1]} }
 }
@@ -161,7 +164,7 @@
     \hfill
     \begin{adjustbox}{valign=t}
         \setlength{\tabcolsep}{0em}
-        \printcontacts[2]
+        \printcontacts[3]
     \end{adjustbox}%
     \medskip
     % Unset commands, modeled of the definition of \maketitle from the article document class
@@ -172,8 +175,9 @@
     \let\pronouns\relax
     \let\@pronouns\@empty
     \let\email\relax
-    \let\linkedin\relax
     \let\website\relax
+    \let\phone\relax
+    \let\linkedin\relax
     \let\github\relax
 }
 
